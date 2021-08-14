@@ -41,7 +41,6 @@ class Walker:
 
                 else:
                     self.imports[path.split("/")[-1][:-3]] = {
-                        "path": path,
                         "imports": []
                     }
 
@@ -62,7 +61,6 @@ class Walker:
                     file_path = os.path.join(root, file)
 
                     self.imports[file[:-3]] = {
-                        "path": file_path,
                         "imports": []
                     }
 

@@ -12,7 +12,6 @@ def main():
         description='A simple tool to graph imports of a python project or file.')
 
     parser.add_argument("path", help="path to project/file location")
-    parser.add_argument("-o", "--output", help="output file")
     parser.add_argument(
         "-j", "--json", help="output json path, no json file will ouptut if not provided.")
     parser.add_argument(
@@ -20,11 +19,11 @@ def main():
     parser.add_argument(
         "-l", "--layout", help="graph layout, ['neato'|'dot'|'twopi'|'circo'|'fdp'|'nop'], default 'neato'", default="neato")
     parser.add_argument(
-        "-lib", action="store_false", help="include standard libraries")
+        "-std-lib", action="store_false", help="include standard libraries")
 
     args = parser.parse_args()
 
-    walker = Walker(args.path, args.lib)
+    walker = Walker(args.path, args.std_lib)
     walker.walk()
 
     if args.json:
