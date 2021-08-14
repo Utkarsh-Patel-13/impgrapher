@@ -14,9 +14,10 @@ class Walker:
 
     """
 
-    def __init__(self, path):
+    def __init__(self, path, include_lib=False):
         self.path: str = path
         self.imports = dict()
+        self.include_lib = include_lib
 
         self.excludes = [
             "venv", "__pycache__",
@@ -91,6 +92,9 @@ class Walker:
 
             self.imports[elem]["imports"] = temp_imports
 
+        if self.include_lib:
+            self.remove_standard_libs()
+
     def parse_imports(self, line):
         """Parses modules from the import statement.
 
@@ -129,14 +133,8 @@ class Walker:
                 ["imports"] if i not in libraries
             ]
 
-    def save_as_json(self):
+    def save_as_json(self, path):
         """Save the imports as json.
         """
-        with open("imports.json", "w") as f:
+        with open(path, "w") as f:
             json.dump(self.imports, f, indent=4)
-
-
-# grapher.plot_graph(imports)
-
-# with open("imports.json", "w") as f:
-#     json.dump(imports, f, indent=4)
