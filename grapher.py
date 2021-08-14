@@ -1,43 +1,46 @@
 import pygraphviz as pgv
 import json
 
-# # read json
-# with open('imports.json') as json_data:
-#     data = json.load(json_data)
 
+class Grapher:
+    """Class to graph the data
+    """
 
-def plot_graph(data: dict):
-    dep = {}
+    def __init__(self, data):
+        self.import_data = data
 
-    user_modules = list(data.keys())
+    def plot_graph(self):
+        dep = {}
 
-    for i in data:
-        imp = data[i]["imports"]
-        imp = [i.split(".")[0] for i in imp]
-        imp = list(dict.fromkeys(imp))
+        user_modules = list(self.import_data.keys())
 
-        if i not in dep:
-            dep[i] = imp
+        for i in self.import_data:
+            imp = self.import_data[i]["imports"]
+            imp = [i.split(".")[0] for i in imp]
+            imp = list(dict.fromkeys(imp))
 
-        for x in imp:
-            if x.split(".")[0] not in dep:
-                dep[x.split(".")[0]] = []
+            if i not in dep:
+                dep[i] = imp
 
-    G = pgv.AGraph(strict=False, directed=True, overlap="scale")
+            for x in imp:
+                if x.split(".")[0] not in dep:
+                    dep[x.split(".")[0]] = []
 
-    for i in dep:
+        G = pgv.AGraph(strict=False, directed=True, overlap="scale")
 
-        if i not in user_modules:
-            G.add_node(i, color="red", shape="square")
-        else:
-            G.add_node(i)
+        for i in dep:
 
-    for i in dep:
-        for j in dep[i]:
-            if j not in user_modules:
-                G.add_edge(j, i, color="lightgreen")
+            if i not in user_modules:
+                G.add_node(i, color="red", shape="square")
             else:
-                G.add_edge(j, i)
+                G.add_node(i)
 
-    G.layout(prog="circo")
-    G.draw("grp.png")
+        for i in dep:
+            for j in dep[i]:
+                if j not in user_modules:
+                    G.add_edge(j, i, color="lightgreen")
+                else:
+                    G.add_edge(j, i)
+
+        G.layout(prog="circo")
+        G.draw("grp.png")
