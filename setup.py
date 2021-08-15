@@ -11,7 +11,7 @@ README = (HERE / "README.md").read_text()
 # setup()
 setup(
     name="impgraph",
-    version="0.1.0",
+    version="1.0.0",
     description="A package for creating import graphs",
     long_description=README,
     long_description_content_type="text/markdown",
