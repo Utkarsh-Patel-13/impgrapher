@@ -4,11 +4,10 @@ A simple python module to plot graph for module imports of a python project or a
 
 ## Requirements to run
 - [Graphviz](https://graphviz.org/download/) installed on your system.
-- Install modules from requirements.txt, `pip3 install -r reqirements.txt`
 
 ## How to use it?
 - Basic usage:
-  - `python3 main.py path_to_file_or_dir`
+  - `impgraph path_to_file_or_dir`
 
 > Note: 
 > - Path can be either directory or an individual file.
@@ -18,15 +17,15 @@ A simple python module to plot graph for module imports of a python project or a
   - Image
     - `-i/--image image_path`: provide path to store image.
     - Default image name: `graph.png`
-    - Example: `python3 main.py path_to_file_or_dir -i out.jpg`
+    - Example: `impgraph path_to_file_or_dir -i out.jpg`
   - Layout
     - `-l/--layout [neato|dot|twopi|circo|fdp|nop]`: Describes graph layout.
     - Default: `neato`
-    - Example: `python3 main.py path_to_file_or_dir -l fdp`
+    - Example: `impgraph path_to_file_or_dir -l fdp`
   - JSON
     - `-j/--json json_path`: provide path to store json data.
     - Default: No json file is stored.
-    - Example: `python3 main.py path_to_file_or_dir -j data.json`
+    - Example: `impgraph path_to_file_or_dir -j data.json`
   - Standard Library
     - `-std-lib`: Include standard (built-in python) libraries in graph.
   - Help

@@ -1,6 +1,11 @@
 venv
 __pycache__
 .vscode
+.idea
 .env
 test.py
 *.pyc
+
+build/
+dist/
+impgraph.egg-info/
