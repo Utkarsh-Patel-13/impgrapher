@@ -5,6 +5,9 @@ A simple python module to plot graph for module imports of a python project or a
 ## Requirements to run
 - [Graphviz](https://graphviz.org/download/) installed on your system.
 
+## Installation
+- `pip3 install impgraph`
+
 ## How to use it?
 - Basic usage:
   - `impgraph path_to_file_or_dir`
