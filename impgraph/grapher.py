@@ -1,4 +1,3 @@
-import logging
 import pygraphviz as pgv
 
 

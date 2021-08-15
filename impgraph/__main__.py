@@ -1,9 +1,7 @@
-from os import path
-import sys
 from argparse import ArgumentParser
 
-from walker import Walker
-from grapher import Grapher
+from impgraph.walker import Walker
+from impgraph.grapher import Grapher
 
 
 def main():

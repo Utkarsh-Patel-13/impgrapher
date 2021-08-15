@@ -3,6 +3,7 @@ import os
 import json
 
 from stdlib_list import stdlib_list
+
 libraries = stdlib_list("3.8")
 
 
@@ -15,7 +16,7 @@ class Walker:
     """
 
     def __init__(self, path, include_lib=False):
-        self.path: str = path
+        self.path = path
         self.imports = dict()
         self.include_lib = include_lib
 
