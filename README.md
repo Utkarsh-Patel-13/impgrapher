@@ -1,3 +1,5 @@
+[![PyPI version](https://badge.fury.io/py/impgraph.svg)](https://pypi.python.org/pypi/impgraph/) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Utkarsh-Patel-13/impgrapher/blob/master/LICENSE)
+
 # Import Grapher
 
 A simple python module to plot graph for module imports of a python project or a file.
