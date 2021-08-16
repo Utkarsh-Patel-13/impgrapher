@@ -17,17 +17,21 @@ class Walker:
 
     def __init__(self, path, include_lib=False):
         self.path = path
-        self.imports = dict()
+        self.imports = {}
         self.include_lib = include_lib
 
         self.excludes = [
-            "venv", "__pycache__",
-            "node_modules", ".git", ".vscode", ".idea"
+            "venv",
+            "__pycache__",
+            "node_modules",
+            ".git",
+            ".vscode",
+            ".idea",
         ]
 
     def walk(self, path=None):
-        """Walk through the files and directories in the path.
-        """
+        """Walk through the files and directories in the path."""
+
         if not path:
             path = self.path
 
@@ -37,23 +41,23 @@ class Walker:
                 if platform.startswith("win32"):
                     self.imports[path.split("\\")[-1][:-3]] = {
                         "path": path,
-                        "imports": []
+                        "imports": [],
                     }
 
                 else:
-                    self.imports[path.split("/")[-1][:-3]] = {
-                        "imports": []
-                    }
+                    self.imports[path.split("/")[-1][:-3]] = {"imports": []}
 
                 for line in f.readlines():
                     line = line.strip(" \n")
                     if "import" in line:
                         if platform.startswith("win32"):
-                            self.imports[path.split(
-                                "\\")[-1][:-3]]["imports"].append(self.parse_imports(line))
+                            self.imports[path.split("\\")[-1][:-3]]["imports"].append(
+                                self.parse_imports(line)
+                            )
                         else:
-                            self.imports[path.split(
-                                "/")[-1][:-3]]["imports"].append(self.parse_imports(line))
+                            self.imports[path.split("/")[-1][:-3]]["imports"].append(
+                                self.parse_imports(line)
+                            )
 
         for root, dirs, files in os.walk(path):
             # walk files
@@ -61,17 +65,15 @@ class Walker:
                 if file.endswith(".py"):
                     file_path = os.path.join(root, file)
 
-                    self.imports[file[:-3]] = {
-                        "imports": []
-                    }
+                    self.imports[file[:-3]] = {"imports": []}
 
                     with open(file_path, "r") as f:
                         for line in f.readlines():
                             line = line.strip(" \n")
                             if "import" in line:
-                                self.imports[
-                                    file[:-3]
-                                ]["imports"].append(self.parse_imports(line))
+                                self.imports[file[:-3]]["imports"].append(
+                                    self.parse_imports(line)
+                                )
 
             # walk subdirectories
             dirs[:] = [d for d in dirs if d not in self.excludes]
@@ -124,16 +126,13 @@ class Walker:
             return ",".join(imports)
 
     def remove_standard_libs(self):
-        """Removes standard libraries from the imports
-        """
-        for k in self. imports:
+        """Removes standard libraries from the imports"""
+        for k in self.imports:
             self.imports[k]["imports"] = [
-                i for i in self.imports[k]
-                ["imports"] if i not in libraries
+                i for i in self.imports[k]["imports"] if i not in libraries
             ]
 
     def save_as_json(self, path):
-        """Save the imports as json.
-        """
+        """Save the imports as json."""
         with open(path, "w") as f:
             json.dump(self.imports, f, indent=4)

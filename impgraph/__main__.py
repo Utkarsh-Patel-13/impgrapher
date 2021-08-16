@@ -7,17 +7,36 @@ from impgraph.grapher import Grapher
 def main():
 
     parser = ArgumentParser(
-        description='A simple tool to graph imports of a python project or file.')
-
+        description="A simple tool to graph imports of a python project or file."
+    )
+    parser.add_argument(
+        "-f",
+        "--format",
+        help="Format of the output",
+        default="png",
+        choices=["bmp", "gif", "jpg", "png", "pdf", "svg"],
+    )
     parser.add_argument("path", help="path to project/file location")
     parser.add_argument(
-        "-j", "--json", help="output json path, no json file will ouptut if not provided.")
+        "-j",
+        "--json",
+        help="output json path, no json file will ouptut if not provided.",
+    )
     parser.add_argument(
-        "-i", "--image", help="output image path, default 'graph.png'", default="graph.png")
+        "-i",
+        "--image",
+        help="output image path, default 'graph.png'",
+        default="graph.png",
+    )
     parser.add_argument(
-        "-l", "--layout", help="graph layout, ['neato'|'dot'|'twopi'|'circo'|'fdp'|'nop'], default 'neato'", default="neato")
+        "-l",
+        "--layout",
+        help="graph layout, ['neato'|'dot'|'twopi'|'circo'|'fdp'|'nop'], default 'neato'",
+        default="neato",
+    )
     parser.add_argument(
-        "-std-lib", action="store_false", help="include standard libraries")
+        "-std-lib", action="store_false", help="include standard libraries"
+    )
 
     args = parser.parse_args()
 
@@ -27,7 +46,7 @@ def main():
     if args.json:
         walker.save_as_json(args.json)
 
-    grapher = Grapher(walker.imports, args.layout)
+    grapher = Grapher(walker.imports, args.layout, args.format)
 
     grapher.plot_graph(args.image)
 
