@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "impgraph"
+version = "2.0.0"
+description = "Visualise the import graph of any Python project or file"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Utkarsh Patel", email = "utkarshhpatel13@gmail.com" }]
+requires-python = ">=3.11"
+dependencies = [
+    "typer>=0.12",
+    "rich>=13",
+    "matplotlib>=3.9",
+    "networkx>=3.3",
+    "pyvis>=0.3",
+    "numpy>=2.4.3",
+]
+
+[project.optional-dependencies]
+pygraphviz = ["pygraphviz>=1.12"]
+dev = ["pytest>=8", "pytest-cov>=5", "mypy>=1.10", "ruff>=0.4"]
+
+[project.scripts]
+impgraph = "impgraph.__main__:main"
+
+[tool.hatchling.build.targets.wheel]
+packages = ["src/impgraph"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=impgraph --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["src/impgraph"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
